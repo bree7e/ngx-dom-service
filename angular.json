@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "dom-service"
+    }
+  },
+  "defaultProject": "dom-service",
+  "cli": {
+    "analytics": "d89d2116-024f-4f22-ab2f-dd8b6de28303"
+  }
 }
