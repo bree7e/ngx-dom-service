@@ -15,6 +15,9 @@ export class AppComponent {
   constructor(private domService: DomService) {}
 
   insertToBody(): void {
-    this.domService.appendComponentToBody(CounterComponent);
+    this.domService.attachComponent(CounterComponent, { value: 8 });
+    setTimeout(() => {
+      this.domService.removeComponent();
+    }, 5000);
   }
 }
