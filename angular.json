@@ -117,6 +117,13 @@
               "devServerTarget": "dom-service:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://bree7e.github.io/ngx-dom-service/",
+            "name": "Dom Service"
+          }
         }
       }
     }

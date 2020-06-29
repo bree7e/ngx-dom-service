@@ -8,6 +8,7 @@ import {
   Renderer2,
   Inject,
   RendererFactory2,
+  Type,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
@@ -35,23 +36,22 @@ export class DomService {
     this.document = document;
   }
 
-  attachComponent(component: any, componentProps: object = null): void {
-    this.componentRef = this.componentFactoryResolver
+  attachComponent<T>(component: Type<T>, componentProps: object = null): T {
+    const componentRef = this.componentFactoryResolver
       .resolveComponentFactory(component)
       .create(this.injector);
-    if (
-      componentProps !== null &&
-      typeof this.componentRef.instance === 'object'
-    ) {
-      Object.assign(this.componentRef.instance, componentProps);
+    if (componentProps !== null && typeof componentRef.instance === 'object') {
+      Object.assign(componentRef.instance, componentProps);
     }
     // put inside the angular component tree
-    this.applicationRef.attachView(this.componentRef.hostView);
-    const componentRootNode = (this.componentRef.hostView as EmbeddedViewRef<
+    this.applicationRef.attachView(componentRef.hostView);
+    const componentRootNode = (componentRef.hostView as EmbeddedViewRef<
       unknown
     >).rootNodes[0] as HTMLElement;
     // append component to the body
     this.renderer.appendChild(this.document.body, componentRootNode);
+    this.componentRef = componentRef;
+    return componentRef.instance;
   }
 
   /**
