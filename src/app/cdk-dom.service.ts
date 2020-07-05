@@ -35,7 +35,10 @@ export class CdkDomService {
     );
   }
 
-  attachComponent<T>(component: ComponentType<T>, componentProps: object = null): T {
+  attachComponent<T>(
+    component: ComponentType<T>,
+    componentProps: object = null
+  ): T {
     const componentPortal = new ComponentPortal<T>(component);
     const componentRef = this.bodyPortalOutlet.attach<T>(componentPortal);
     if (componentProps !== null && typeof componentRef.instance === 'object') {

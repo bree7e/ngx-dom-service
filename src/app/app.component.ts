@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { DomService } from './dom.service';
-import { CdkDomService } from './cdk-dom.service';
+import { DialogService } from './dialog.service';
 import { CounterComponent } from './counter/counter.component';
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent {
 
   constructor(
     private domService: DomService,
-    private cdkDomService: CdkDomService
+    private dialogService: DialogService
   ) {}
 
   insertToBody(): void {
@@ -26,9 +26,8 @@ export class AppComponent {
   }
 
   insertToBodyCdk(): void {
-    this.cdkDomService.attachComponent(CounterComponent, { value: 5 });
-    setTimeout(() => {
-      this.cdkDomService.removeComponent();
-    }, 5000);
+    this.dialogService
+      .open(CounterComponent, { value: 3 })
+      .afterClosed$.subscribe((r) => console.warn(r));
   }
 }
